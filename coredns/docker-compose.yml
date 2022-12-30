@@ -1,0 +1,16 @@
+version: "3.5"
+services:
+    dns1:
+        image: .../...:latest
+        restart: on-failure
+        ports:
+            - target: 5356
+              published: 53 
+              protocol: tcp
+            - target: 5356
+              published: 53
+              protocol: udp
+        volumes:
+            - ./configs/Corefile:/coredns/Corefile
+            - ./configs/db.dns.....:/coredns/db.dns.....
+            - ./configs/db.arpa.dns.....:/coredns/db.arpa.dns.....

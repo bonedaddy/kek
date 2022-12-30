@@ -1,0 +1,32 @@
+dns...:5356 {
+	file db.dns....
+	# only allow access to this record from nebula
+	acl lighthouse1.... {
+		allow net 172.30.0.0/16
+		block
+	}
+	# only allow access to this record from nebula
+	acl lighthouse2.... {
+		allow net 172.30.0.0/16
+		block
+	}
+	log
+	errors
+}
+
+172.30.0.0/16:5356 {
+	file db.arpa.dns....
+	log
+	errors
+}
+
+.:5356 {
+	chaos ... info@...
+	# configure this to forward to your upstream dns servers
+	forward . 8.8.8.8 8.8.4.4 9.9.9.9
+	log
+	errors
+	whoami
+	health # only need to enable this once
+	cache
+}

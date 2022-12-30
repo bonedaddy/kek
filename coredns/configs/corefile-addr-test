@@ -1,0 +1,45 @@
+dns....:5356 {
+	file db.dns....
+	# only allow access to this record from nebula
+	acl lighthouse1.... {
+		allow net 172.30.0.0/16
+		block
+	}
+	# only allow access to this record from nebula
+	acl lighthouse2.... {
+		allow net 172.30.0.0/16
+		block
+	}
+	log
+	errors
+}
+172.30.0.0/16:5356 {
+	file db.dns....
+	# only allow access to this record from nebula
+	acl lighthouse1.dns.... {
+		allow net 172.30.0.0/16
+		block
+	}
+	# only allow access to this record from nebula
+	acl lighthouse2.dns.... {
+		allow net 172.30.0.0/16
+		block
+	}
+    template IN A ...dns.... {
+        match "^ip-(?P<a>[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])-(?P<b>[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])-(?P<c>[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])-(?P<d>[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]SUBDOMAIN_HERE[.]DOMAIN_NAME_HERE[.]TLD_HERE[.]$"
+        answer "{{ .Name }} 86400 IN A {{ .Group.a }}.{{ .Group.b }}.{{ .Group.c }}.{{ .Group.d }}"
+        fallthrough
+    }
+	log
+	errors
+}
+.:5356 {
+	chaos . ..@...
+	# replace with your upstream servers
+	forward . 8.8.8.8 8.8.4.4 9.9.9.9
+	log
+	errors
+	whoami
+	health # only need to enable this once
+	cache
+}

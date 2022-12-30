@@ -1,0 +1,26 @@
+$ORIGIN dns...... ; this symbol starts a comment
+$TTL 3600 ; this sets the default ttl
+@	IN	SOA ns1.dns...... admin@dns..... (
+				.. ; serial -  RFC-1912 format
+				..       ; time to refresh (2 hours)
+				.       ; time to retry (1 hour)
+				.    ; time to expire (2 weeks)
+				.       ; minimum ttl (1 hour)
+				)
+
+	3600 IN NS ns1.dns......
+	3600 IN NS ns2.dns......
+
+; START PUBLIC RECORDS	;
+www     	IN A			127.0.0.1
+lighthouse1-ext IN A		....
+lighthouse2-ext IN A 		....
+; END PUBLIC RECORDS
+
+; START NEBULA RECORDS	;
+lighthouse1	IN A			172.30.0.1
+lighthouse2 IN A 			172.30.0.2 
+ns1			IN CNAME		lighthouse1-ext
+ns2			IN CNAME		lighthouse2-ext
+....   	IN A 			172.30.255.254
+; END NEBULA RECORDS	;

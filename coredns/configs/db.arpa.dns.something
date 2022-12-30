@@ -1,0 +1,18 @@
+$TTL	86400 ; 24 hours, could have been written as 24h or 1d
+$ORIGIN 30.172.IN-ADDR.ARPA.
+@  1D  IN	 SOA ns1.dns.... admin@d... (
+				.. ; serial -  RFC-1912 format
+				..       ; time to refresh (2 hours)
+				..       ; time to retry (1 hour)
+				.    ; time to expire (2 weeks)
+				.       ; minimum ttl (1 hour)
+				)
+
+       IN  NS ns1.dns....
+       IN  NS ns2.dns....
+
+; START NEBULA RECORDS	;
+1.0     IN PTR      ...dns....
+2.0     IN PTR      ...dns....
+254.255 IN PTR      ...dns....
+; END NEBULA RECORDS	;
